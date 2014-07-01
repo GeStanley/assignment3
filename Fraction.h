@@ -10,39 +10,50 @@ using namespace std;
 
 class Fraction
 {
-  //unary operators
-  Fraction operator+ (const Fraction & rhs);
-  Fraction operator- (const Fraction & rhs);
-  //binary operators
-  Fraction operator+ (const Fraction& lhs, const Fraction& rhs);
-  Fraction operator- (const Fraction& lhs, const Fraction& rhs);
-  Fraction operator* (const Fraction& lhs, const Fraction& rhs);
-  Fraction operator/ (const Fraction& lhs, const Fraction& rhs);
+public:
+  //constructors
+  Fraction();
+  Fraction( long);
+  Fraction( long, long);
+  //Fraction( std::string);
 
-  Fraction & Fraction::operator += (const Fraction & rhs);
-  Fraction & Fraction::operator -= (const Fraction & rhs);
-  Fraction & Fraction::operator *= (const Fraction & rhs);
-  Fraction & Fraction::operator /= (const Fraction & rhs);
+  //unary operators
+  //Fraction operator+ (const Fraction & rhs);
+  //Fraction operator- (const Fraction & rhs);
+  //binary operators
+  //Fraction operator+ (const Fraction& lhs, const Fraction& rhs);
+  //Fraction operator- (const Fraction& lhs, const Fraction& rhs);
+  //Fraction operator* (const Fraction& lhs, const Fraction& rhs);
+  //Fraction operator/ (const Fraction& lhs, const Fraction& rhs);
+
+  //Fraction & Fraction::operator += (const Fraction & rhs);
+  //Fraction & Fraction::operator -= (const Fraction & rhs);
+  //Fraction & Fraction::operator *= (const Fraction & rhs);
+  //Fraction & Fraction::operator /= (const Fraction & rhs);
 
   //main logical operators
-  bool operator == (const Fraction &lhs, const Fraction & rhs);
-  bool operator < (const Fraction &lhs, const Fraction & rhs);
+  friend bool operator == (const Fraction &, const Fraction &);
+  //bool operator < (const Fraction &lhs, const Fraction & rhs);
   //secondary logical operators, deduced from above
-  bool operator != (const Fraction &lhs, const Fraction & rhs);
-  bool operator <= (const Fraction &lhs, const Fraction & rhs);
-  bool operator > (const Fraction &lhs, const Fraction & rhs);
-  bool operator >= (const Fraction &lhs, const Fraction & rhs);
+  //bool operator != (const Fraction &lhs, const Fraction & rhs);
+  //bool operator <= (const Fraction &lhs, const Fraction & rhs);
+  //bool operator > (const Fraction &lhs, const Fraction & rhs);
+  //bool operator >= (const Fraction &lhs, const Fraction & rhs);
 
-  Fraction & Fraction::operator++(); //++f
-  Fraction Fraction::operator++(int); //f++
+  //Fraction & Fraction::operator++(); //++f
+  //Fraction Fraction::operator++(int); //f++
 
   //function call operator
-  String operator () ();
+  //String operator () ();
 
   //insertion operator >>
 
   //extraction operator <<
+  friend ostream & operator << ( ostream &, const Fraction &);
 
+private:
+  long numerator;
+  long denominator;
 };
 
 #endif /* WORDLIST_H_ */
