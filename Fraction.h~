@@ -17,7 +17,7 @@ public:
   Fraction( long, long);
   //Fraction( std::string);
   
-  const string toString() const;
+  string toString() const;
 
   //unary operators
   //Fraction operator+ (const Fraction & rhs);

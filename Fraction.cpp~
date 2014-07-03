@@ -47,9 +47,9 @@ ostream & operator << (ostream &output, const Fraction &fraction)
 const string Fraction::toString() const
 {
     string result;
-    result += numerator;
+    result << numerator;
     result += "/";
-    result += denominator;
+    result << denominator;
 
     cout << "the string created is : " << result << endl;
 
