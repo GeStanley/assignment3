@@ -39,21 +39,12 @@ bool operator == (const Fraction &lhs, const Fraction & rhs)
 
 ostream & operator << (ostream &output, const Fraction &fraction)
 {
-    //output << fraction.numerator << "/" <<
-    //   fraction.denominator ;
-    //return output;
+
    return output << fraction.toString();
 }
 const string Fraction::toString() const
 {
-    string result;
-    result += numerator;
-    result += "/";
-    result += denominator;
-
-    cout << "the string created is : " << result << endl;
-
-    return result;
+    return to_string(numerator) + "/" + to_string(denominator);
 }
 
 void Fraction::simplify()

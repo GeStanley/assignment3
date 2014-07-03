@@ -39,10 +39,15 @@ int main()
    
    Fraction f3(500,1000);
    cout << "does f3 equal 1/2" << '\n';
-   string output = f3.toString();
-   cout << output << endl;
-   cout << f3 << endl;
    f3.toString() == "1/2" ? cout << "true" << endl : cout << "false" << endl;
+
+   Fraction f4(17,3);
+   cout << "does f4 equal 17/3" << '\n';
+   f4.toString() == "17/3" ? cout << "true" << endl : cout << "false" << endl;
+
+   Fraction f5(462,1071);
+   cout << "does f5 equal 22/51" << '\n';
+   f5.toString() == "22/51" ? cout << "true" << endl : cout << "false" << endl;
 
    return 0;
 }
