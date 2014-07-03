@@ -18,10 +18,25 @@ public:
   //Fraction( std::string);
   
   const string toString() const;
+  const long getNumerator() const;
+  const long getDenominator() const;
+
+private:
+  
+  
+  void simplify();
+  long findGreatestCommonDenominator( long, long);
+	
+  long numerator;
+  long denominator;
+};
+
+  //*********
+  //NON-MEMBER OPERATORS
 
   //unary operators
-  //Fraction operator+ (const Fraction & rhs);
-  //Fraction operator- (const Fraction & rhs);
+  Fraction operator+ (const Fraction & );
+  Fraction operator- (const Fraction & );
   //binary operators
   //Fraction operator+ (const Fraction& lhs, const Fraction& rhs);
   //Fraction operator- (const Fraction& lhs, const Fraction& rhs);
@@ -34,7 +49,7 @@ public:
   //Fraction & Fraction::operator /= (const Fraction & rhs);
 
   //main logical operators
-  friend bool operator == (const Fraction &, const Fraction &);
+  bool operator == (const Fraction &, const Fraction &);
   //bool operator < (const Fraction &lhs, const Fraction & rhs);
   //secondary logical operators, deduced from above
   //bool operator != (const Fraction &lhs, const Fraction & rhs);
@@ -51,16 +66,5 @@ public:
   //insertion operator >>
 
   //extraction operator <<
-  friend ostream & operator << ( ostream &, const Fraction &);
-
-private:
-  
-  
-  void simplify();
-  long findGreatestCommonDenominator( long, long);
-	
-  long numerator;
-  long denominator;
-};
-
+  ostream & operator << ( ostream &, const Fraction &);
 #endif /* WORDLIST_H_ */

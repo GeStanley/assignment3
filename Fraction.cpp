@@ -29,22 +29,19 @@ Fraction::Fraction( long numerator, long denominator)
   simplify();
 }
 
-bool operator == (const Fraction &lhs, const Fraction & rhs)
-{
-  if(lhs.numerator==rhs.numerator && lhs.denominator==rhs.denominator)
-    return true;
-  else
-    return false;
-}
-
-ostream & operator << (ostream &output, const Fraction &fraction)
-{
-
-   return output << fraction.toString();
-}
 const string Fraction::toString() const
 {
     return to_string(numerator) + "/" + to_string(denominator);
+}
+
+const long Fraction::getNumerator() const
+{
+  return numerator;
+}
+
+const long Fraction::getDenominator() const
+{
+  return denominator;
 }
 
 void Fraction::simplify()
@@ -58,4 +55,31 @@ void Fraction::simplify()
 long Fraction::findGreatestCommonDenominator( long numer, long denom)
 {
   return (denom == 0) ? numer : findGreatestCommonDenominator( denom, numer % denom);
+}
+
+//********************* NON-MEMBER FUNCTIONS *************************//
+
+Fraction operator + (const Fraction & rhs)
+{
+  return rhs;
+}
+
+Fraction operator - (const Fraction & rhs)
+{
+  Fraction temp(-rhs.getNumerator(), rhs.getDenominator());
+  return temp;
+}
+
+bool operator == (const Fraction &lhs, const Fraction & rhs)
+{
+  if(lhs.getNumerator()==rhs.getNumerator() && 
+	lhs.getDenominator()==rhs.getDenominator())
+    return true;
+  else
+    return false;
+}
+
+ostream & operator << (ostream &output, const Fraction &fraction)
+{
+   return output << fraction.toString();
 }
