@@ -48,6 +48,9 @@ int main()
    Fraction f5(462,1071);
    cout << "does f5 equal 22/51" << '\n';
    f5.toString() == "22/51" ? cout << "true" << endl : cout << "false" << endl;
+   
 
+
+   Fraction test("hello world, this is a test");
    return 0;
 }
