@@ -25,16 +25,15 @@ public:
 
   void setNumerator( long );
   void setDenominator( long );
-  //Fraction & Fraction::operator += (const Fraction & rhs);
-  //Fraction & Fraction::operator -= (const Fraction & rhs);
+
+  Fraction & operator += (const Fraction & rhs);
+  Fraction & operator -= (const Fraction & rhs);
   //Fraction & Fraction::operator *= (const Fraction & rhs);
   //Fraction & Fraction::operator /= (const Fraction & rhs);
 
   //Fraction & Fraction::operator++(); //++f
   //Fraction Fraction::operator++(int); //f++
 private:
-
-
 
   long numerator;
   long denominator;
@@ -59,8 +58,7 @@ private:
   //Fraction operator* (const Fraction& lhs, const Fraction& rhs);
   //Fraction operator/ (const Fraction& lhs, const Fraction& rhs);
 
-  Fraction & operator += (const Fraction &);
-  Fraction & operator -= (const Fraction &);
+
   //Fraction & Fraction::operator *= (const Fraction & rhs);
   //Fraction & Fraction::operator /= (const Fraction & rhs);
 

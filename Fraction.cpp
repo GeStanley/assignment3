@@ -63,7 +63,7 @@ void Fraction::setDenominator( long denom )
 
 }
 
-static queue<string> Fraction::Tokenize( const string & infixExpression )
+queue<string> Fraction::Tokenize( const string & infixExpression )
 {
   queue<string> tokens;
 
@@ -77,7 +77,7 @@ static queue<string> Fraction::Tokenize( const string & infixExpression )
   return tokens;
 }
 
-static Fraction evaluateInfix( queue<string> & infixQueue )
+Fraction evaluateInfix( queue<string> & infixQueue )
 {
 
 }
@@ -151,9 +151,9 @@ bool operator == ( const Fraction &lhs, const Fraction & rhs )
 
 bool operator < (const Fraction &lhs, const Fraction &rhs)
 {
-  if(lhs.numerator==rhs.numerator)
+  if(lhs.getNumerator()==rhs.getNumerator())
   {
-    if(lhs.denominator>rhs.denominator)
+    if(lhs.getDenominator()>rhs.getDenominator())
       return true;
     else
       return false;
