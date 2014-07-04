@@ -5,6 +5,9 @@
  *      Author: Geoffrey
  */
 #include <iostream>
+#include <string>
+#include <queue>
+#include <stack>
 using namespace std;
 #include "Fraction.h"
 
@@ -14,36 +17,82 @@ Fraction::Fraction()
   denominator = 1;
 }
 
-Fraction::Fraction( long numerator)
+Fraction::Fraction( long numerator )
 {
   this->numerator = numerator;
   denominator = 1;
 }
 
-Fraction::Fraction( long numerator, long denominator)
+Fraction::Fraction( long numerator, long denominator )
 {
   this->numerator = numerator;
   this->denominator = denominator;
+
+  normalize();
 }
 
-Fraction::Fraction( const string & input)
+Fraction::Fraction( string infix )
 {
-  string::size_type sz;
-  Fraction(stol(input, &sz));
+  Fraction::Tokenize(infix);
 }
 
-Fraction Fraction::operator+ (const Fraction& lhs, const Fraction& rhs)
+const string Fraction::toString() const
 {
-  Fraction temp(lhs);
-  temp += rhs;
-  return temp;
+    return to_string(numerator) + "/" + to_string(denominator);
 }
 
-Fraction Fraction::operator- (const Fraction& lhs, const Fraction& rhs)
+const long Fraction::getNumerator() const
 {
-  Fraction temp(lhs);
-  temp -= rhs;
-  return temp;
+  return numerator;
+}
+
+const long Fraction::getDenominator() const
+{
+  return denominator;
+}
+
+void Fraction::setNumerator( long numer )
+{
+  numerator = numer;
+}
+
+void Fraction::setDenominator( long denom )
+{
+  (denom == 0) ?  : denominator = denom;
+  //TODO THROW EXCEPTION
+
+}
+
+static queue<string> Fraction::Tokenize( const string & infixExpression )
+{
+  queue<string> tokens;
+
+  for( char currentChar : infixExpression )
+  {
+    cout << currentChar << endl;
+  }
+
+
+  tokens.push("nothing");
+  return tokens;
+}
+
+static Fraction evaluateInfix( queue<string> & infixQueue )
+{
+
+}
+
+void Fraction::normalize()
+{
+  long gcm = gcd( numerator, denominator );
+
+  numerator /= gcm;
+  denominator /= gcm;
+}
+
+long Fraction::gcd( long numer, long denom )
+{
+  return (denom == 0) ? numer : gcd( denom, numer % denom );
 }
 
 Fraction & Fraction::operator += (const Fraction & rhs)
@@ -64,16 +113,43 @@ Fraction & Fraction::operator -= (const Fraction & rhs)
   return *this;
 }
 
-bool operator == (const Fraction &lhs, const Fraction &rhs)
+//********************* NON-MEMBER FUNCTIONS *********************//
+
+Fraction operator + ( const Fraction & rhs )
 {
-  if(lhs.numerator==rhs.numerator &&
-    lhs.denominator==rhs.denominator)
+  return rhs;
+}
+
+Fraction operator - ( const Fraction & rhs )
+{
+  Fraction temp(-rhs.getNumerator(), rhs.getDenominator());
+  return temp;
+}
+
+Fraction operator+ (const Fraction& lhs, const Fraction& rhs)
+{
+  Fraction temp(lhs);
+  temp += rhs;
+  return temp;
+}
+
+Fraction operator- (const Fraction& lhs, const Fraction& rhs)
+{
+  Fraction temp(lhs);
+  temp -= rhs;
+  return temp;
+}
+
+bool operator == ( const Fraction &lhs, const Fraction & rhs )
+{
+  if(lhs.getNumerator()==rhs.getNumerator() &&
+	lhs.getDenominator()==rhs.getDenominator())
     return true;
   else
     return false;
 }
 
-bool Fraction::operator < (const Fraction &lhs, const Fraction &rhs)
+bool operator < (const Fraction &lhs, const Fraction &rhs)
 {
   if(lhs.numerator==rhs.numerator)
   {
@@ -86,14 +162,14 @@ bool Fraction::operator < (const Fraction &lhs, const Fraction &rhs)
     return false;
 }
 
-bool Fraction::operator != (const Fraction &lhs, const Fraction &rhs)
+bool operator != (const Fraction &lhs, const Fraction &rhs)
 {
   if(lhs == rhs) return false;
 
   return true;
 }
 
-bool Fraction::operator <= (const Fraction &lhs, const Fraction &rhs)
+bool operator <= (const Fraction &lhs, const Fraction &rhs)
 {
   if(lhs == rhs || lhs < rhs)
     return true;
@@ -101,7 +177,7 @@ bool Fraction::operator <= (const Fraction &lhs, const Fraction &rhs)
   return false;
 }
 
-bool Fraction::operator > (const Fraction &lhs, const Fraction &rhs)
+bool operator > (const Fraction &lhs, const Fraction &rhs)
 {
   if(lhs < rhs) return false;
 
@@ -110,14 +186,14 @@ bool Fraction::operator > (const Fraction &lhs, const Fraction &rhs)
   return true;
 }
 
-bool Fraction::operator >= (const Fraction &lhs, const Fraction &rhs)
+bool operator >= (const Fraction &lhs, const Fraction &rhs)
 {
   if(lhs < rhs) return false;
 
   return true;
 }
 
-istream & operator << (istream &input, Fraction &fraction)
+istream & operator >> (istream &input, Fraction &fraction)
 {
     //input >> must finish this to extract numerator
     input.ignore(); //ignore the /
@@ -126,9 +202,7 @@ istream & operator << (istream &input, Fraction &fraction)
     return input;
 }
 
-ostream & operator << (ostream &output, const Fraction &fraction)
+ostream & operator << ( ostream &output, const Fraction &fraction )
 {
-    output << fraction.numerator << "/" <<
-        fraction.denominator ;
-    return output;
+   return output << fraction.toString();
 }
