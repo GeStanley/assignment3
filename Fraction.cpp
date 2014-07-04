@@ -34,6 +34,8 @@ Fraction::Fraction( long numerator, long denominator )
 Fraction::Fraction( string infix )
 {
   Fraction::Tokenize(infix);
+
+  normalize();
 }
 
 const string Fraction::toString() const
@@ -71,7 +73,7 @@ queue<string> Fraction::Tokenize( const string & infixExpression )
   {
     cout << currentChar << endl;
   }
-
+  //TODO FINISH THIS
 
   tokens.push("nothing");
   return tokens;
@@ -79,15 +81,15 @@ queue<string> Fraction::Tokenize( const string & infixExpression )
 
 Fraction evaluateInfix( queue<string> & infixQueue )
 {
-
+  //TODO IMPLEMENT THIS FUNCTION
 }
 
 void Fraction::normalize()
 {
-  long gcm = gcd( numerator, denominator );
+  long divisor = gcd( numerator, denominator );
 
-  numerator /= gcm;
-  denominator /= gcm;
+  numerator /= divisor;
+  denominator /= divisor;
 }
 
 long Fraction::gcd( long numer, long denom )
@@ -97,23 +99,29 @@ long Fraction::gcd( long numer, long denom )
 
 Fraction & Fraction::operator += (const Fraction & rhs)
 {
-  this->numerator = this->numerator * rhs.denominator
-                   + rhs.numerator * this->denominator;
-  this->denominator *= rhs.denominator;
+  this->numerator = this->numerator * rhs.getDenominator()
+                   + rhs.getNumerator() * this->denominator;
+
+  this->denominator *= rhs.getDenominator();
+
+  this->normalize();
 
   return *this;
 }
 
 Fraction & Fraction::operator -= (const Fraction & rhs)
 {
-  this->numerator = this->numerator * rhs.denominator
-                   - rhs.numerator * this->denominator;
-  this->denominator *= rhs.denominator;
+  this->numerator = this->numerator * rhs.getDenominator()
+                   - rhs.getNumerator() * this->denominator;
+
+  this->denominator *= rhs.getDenominator();
+
+  this->normalize();
 
   return *this;
 }
 
-//********************* NON-MEMBER FUNCTIONS *********************//
+//********************* NON-MEMBER OPERATORS *********************//
 
 Fraction operator + ( const Fraction & rhs )
 {
@@ -143,7 +151,7 @@ Fraction operator- (const Fraction& lhs, const Fraction& rhs)
 bool operator == ( const Fraction &lhs, const Fraction & rhs )
 {
   if(lhs.getNumerator()==rhs.getNumerator() &&
-	lhs.getDenominator()==rhs.getDenominator())
+	   lhs.getDenominator()==rhs.getDenominator())
     return true;
   else
     return false;
