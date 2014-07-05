@@ -51,6 +51,6 @@ int main()
 
 
 
-   Fraction test("hello world, this is a test");
+   Fraction test("(9-1 + 2)*(8-3)+6/2");
    return 0;
 }

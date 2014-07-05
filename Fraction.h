@@ -28,11 +28,15 @@ public:
 
   Fraction & operator += (const Fraction & rhs);
   Fraction & operator -= (const Fraction & rhs);
-  //Fraction & Fraction::operator *= (const Fraction & rhs);
-  //Fraction & Fraction::operator /= (const Fraction & rhs);
+  Fraction & operator *= (const Fraction & rhs);
+  Fraction & operator /= (const Fraction & rhs);
 
-  //Fraction & Fraction::operator++(); //++f
-  //Fraction Fraction::operator++(int); //f++
+  Fraction & operator++(); //++f
+  Fraction operator++(int); //f++
+
+  Fraction & operator--(); //--f
+  Fraction operator--(int); //f--
+
 private:
 
   long numerator;
@@ -55,12 +59,8 @@ private:
   //binary operators
   Fraction operator+ (const Fraction &, const Fraction &);
   Fraction operator- (const Fraction &, const Fraction &);
-  //Fraction operator* (const Fraction& lhs, const Fraction& rhs);
-  //Fraction operator/ (const Fraction& lhs, const Fraction& rhs);
-
-
-  //Fraction & Fraction::operator *= (const Fraction & rhs);
-  //Fraction & Fraction::operator /= (const Fraction & rhs);
+  Fraction operator* (const Fraction& lhs, const Fraction& rhs);
+  Fraction operator/ (const Fraction& lhs, const Fraction& rhs);
 
   //main logical operators
   //main logical operators
@@ -76,7 +76,7 @@ private:
   //String operator () ();
 
   //insertion operator >>
-  istream & operator >> ( istream &, Fraction &);
+  //istream & operator >> ( istream &, Fraction &);
 
   //extraction operator <<
   ostream & operator << ( ostream &, const Fraction & );
