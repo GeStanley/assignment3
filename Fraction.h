@@ -17,7 +17,8 @@ public:
   Fraction();
   Fraction( long );
   Fraction( long, long );
-  Fraction( string );
+  Fraction( const string & );
+  Fraction( const char *);
 
   const string toString() const;
   const long getNumerator() const;
@@ -37,6 +38,8 @@ public:
   Fraction & operator--(); //--f
   Fraction operator--(int); //f--
 
+  //function call operator
+  string operator () (int);
 private:
 
   long numerator;
@@ -45,14 +48,13 @@ private:
   static queue<string> Tokenize( const string & infixExpression );
   static Fraction evaluateInfix( queue<string> & infixQueue );
 
-  //static int precedence( string );
+  static int precedence( string );
   void normalize();
   static long gcd( long, long );
 };
 
   //*********
   //NON-MEMBER OPERATORS
-
   //unary operators
   Fraction operator+ ( const Fraction & rhs );
   Fraction operator- ( const Fraction & rhs );
@@ -71,9 +73,6 @@ private:
   bool operator <= (const Fraction &lhs, const Fraction & rhs);
   bool operator > (const Fraction &lhs, const Fraction & rhs);
   bool operator >= (const Fraction &lhs, const Fraction & rhs);
-
-  //function call operator
-  //String operator () ();
 
   //insertion operator >>
   //istream & operator >> ( istream &, Fraction &);

@@ -31,9 +31,22 @@ Fraction::Fraction( long numerator, long denominator )
   normalize();
 }
 
-Fraction::Fraction( string infix )
+Fraction::Fraction( const string &infix )
 {
-  Fraction::Tokenize(infix);
+  cout << "const string &infix constructor" << endl;
+
+  *this = evaluateInfix(Tokenize(infix));
+
+  normalize();
+}
+
+Fraction::Fraction( const char *characters)
+{
+  cout << "const char *characters constructor" << endl;
+  string temp;
+  temp+= characters;
+
+  *this = evaluateInfix(Tokenize(temp));
 
   normalize();
 }
@@ -119,13 +132,32 @@ Fraction evaluateInfix( queue<string> & infixQueue )
         }
       else if(infixQueue.front()==")")
         {
-
+          while(!operators.empty() && infixQueue.front()!="(")
+            {
+              
+            }
         }
-      else if(false)
+      else
+        {
+          string::size_type sz;
+          operands.push(Fraction(stol(infixQueue.front(), &sz));
+        }
 
       infixQueue.pop();
     }
   //TODO IMPLEMENT THIS FUNCTION
+}
+
+int Fraction::precedence( string oper )
+{
+  if(oper=="*" || oper=="/")
+    return 2;
+
+  if(oper=="+" || oper=="-")
+    return 1;
+
+  if(oper=="(")
+    return 0;
 }
 
 void Fraction::normalize()
@@ -225,6 +257,11 @@ Fraction Fraction::operator--(int) //f++
   normalize();
 
   return temp;
+}
+
+string Fraction::operator() (int)
+{
+  return toString();
 }
 
 //********************* NON-MEMBER OPERATORS *********************//
