@@ -8,6 +8,7 @@
 #define FRACTION_H_
 
 #include <queue>
+#include <stack>
 using namespace std;
 
 class Fraction
@@ -47,6 +48,7 @@ private:
 
   static queue<string> Tokenize( const string & infixExpression );
   static Fraction evaluateInfix( queue<string> & infixQueue );
+  static Fraction evaluateOperation( stack<string> & operators, stack<Fraction> & operands);
 
   static int precedence( string );
   void normalize();

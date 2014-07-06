@@ -38,7 +38,7 @@ Fraction::Fraction( const string &infix )
 
   queue<string> myQueue = Tokenize(infix);
 
-  //*this = evaluateInfix(myQueue);
+  *this = evaluateInfix(myQueue);
 
   normalize();
 }
@@ -51,7 +51,7 @@ Fraction::Fraction( const char *characters)
 
   queue<string> myQueue = Tokenize(temp);
 
-  //*this = evaluateInfix(myQueue);
+  *this = evaluateInfix(myQueue);
 
   normalize();
 }
@@ -97,48 +97,50 @@ queue<string> Fraction::Tokenize( const string & infixExpression )
     else{
       //if a string representing a digit was
       //parsed push it to the stack
-      if(currentToken!="")
+      if(currentToken != "")
         tokens.push(currentToken);
 
-      string operation ="";
+      string operation = "";
       operation += currentChar;
       tokens.push(operation);
 
       //reset currentToken values
-      currentToken="";
+      currentToken = "";
     }
   }
   //if the last char of the string was a digit
   //push it to the stack
-  if(currentToken!="")
+  if(currentToken != "")
     tokens.push(currentToken);
 
   return tokens;
 }
 
-Fraction evaluateInfix( queue<string> & infixQueue )
+Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
 {
   stack<Fraction> operands;
   stack<string> operators;
 
+  cout << "entered evaluate infix" << endl;
+
   while(!infixQueue.empty())
     {
-      if(infixQueue.front()=="+" ||
-        infixQueue.front()=="-" ||
-        infixQueue.front()=="*" ||
-        infixQueue.front()=="/")
+      if(infixQueue.front() == "+" ||
+        infixQueue.front() == "-" ||
+        infixQueue.front() == "*" ||
+        infixQueue.front() == "/")
         {
 
         }
-      else if(infixQueue.front()=="(")
+      else if(infixQueue.front() == "(")
         {
-        operators.push(infixQueue.front());
+          operators.push(infixQueue.front());
         }
-      else if(infixQueue.front()==")")
+      else if(infixQueue.front() == ")")
         {
-          while(!operators.empty() && infixQueue.front()!="(")
+          while(!operators.empty() && infixQueue.front() != "(")
             {
-
+              operands.push(evaluateOperation(operators, operands));
             }
         }
       else
@@ -150,7 +152,39 @@ Fraction evaluateInfix( queue<string> & infixQueue )
 
       infixQueue.pop();
     }
-  //TODO IMPLEMENT THIS FUNCTION
+
+
+  while(!operators.empty())
+    {
+      operands.push(evaluateOperation(operators, operands));
+    }
+
+  Fraction result = operands.top();
+  operands.pop();
+  return result;
+}
+
+Fraction Fraction::evaluateOperation( stack<string> & operators, stack<Fraction> & operands)
+{
+  Fraction rhs = operands.top();
+  operands.pop();
+  Fraction lhs = operands.top();
+  operands.pop();
+
+  string oper = operators.top();
+  operators.pop();
+
+  if(oper=="+")
+    return lhs + rhs;
+
+  if(oper=="-")
+    return lhs - rhs;
+
+  if(oper=="*")
+    return lhs * rhs;
+
+  if(oper=="/")
+    return lhs / rhs;
 }
 
 int Fraction::precedence( string oper )
