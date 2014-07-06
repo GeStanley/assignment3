@@ -8,25 +8,26 @@
 #include <string>
 #include <queue>
 #include <stack>
+#include <exception>
 using namespace std;
 #include "Fraction.h"
 
 Fraction::Fraction()
 {
-  numerator = 0;
-  denominator = 1;
+  setNumerator(0);
+  setDenominator(1);
 }
 
 Fraction::Fraction( long numerator )
 {
-  this->numerator = numerator;
-  denominator = 1;
+  setNumerator(numerator);
+  setDenominator(1);
 }
 
 Fraction::Fraction( long numerator, long denominator )
 {
-  this->numerator = numerator;
-  this->denominator = denominator;
+  setNumerator(numerator);
+  setDenominator(denominator);
 
   normalize();
 }
@@ -35,7 +36,9 @@ Fraction::Fraction( const string &infix )
 {
   cout << "const string &infix constructor" << endl;
 
-  *this = evaluateInfix(Tokenize(infix));
+  queue<string> myQueue = Tokenize(infix);
+
+  //*this = evaluateInfix(myQueue);
 
   normalize();
 }
@@ -46,7 +49,9 @@ Fraction::Fraction( const char *characters)
   string temp;
   temp+= characters;
 
-  *this = evaluateInfix(Tokenize(temp));
+  queue<string> myQueue = Tokenize(temp);
+
+  //*this = evaluateInfix(myQueue);
 
   normalize();
 }
@@ -73,8 +78,7 @@ void Fraction::setNumerator( long numer )
 
 void Fraction::setDenominator( long denom )
 {
-  (denom == 0) ?  : denominator = denom;
-  //TODO THROW EXCEPTION
+  (denom == 0) ? throw "Division by zero" : denominator = denom;
 
 }
 
@@ -134,13 +138,14 @@ Fraction evaluateInfix( queue<string> & infixQueue )
         {
           while(!operators.empty() && infixQueue.front()!="(")
             {
-              
+
             }
         }
       else
         {
           string::size_type sz;
-          operands.push(Fraction(stol(infixQueue.front(), &sz));
+          long number = stol(infixQueue.front(), &sz);
+          operands.push(Fraction(number));
         }
 
       infixQueue.pop();
