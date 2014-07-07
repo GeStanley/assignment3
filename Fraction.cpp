@@ -34,7 +34,7 @@ Fraction::Fraction( long numerator, long denominator )
 
 Fraction::Fraction( const string &infix )
 {
-  cout << "const string &infix constructor" << endl;
+  //cout << "const string &infix constructor" << endl;
 
   queue<string> myQueue = Tokenize(infix);
 
@@ -45,7 +45,7 @@ Fraction::Fraction( const string &infix )
 
 Fraction::Fraction( const char *characters)
 {
-  cout << "const char *characters constructor" << endl;
+  //cout << "const char *characters constructor" << endl;
   string temp;
   temp+= characters;
 
@@ -121,24 +121,33 @@ Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
   stack<Fraction> operands;
   stack<string> operators;
 
-  cout << "entered evaluate infix" << endl;
+  //cout << "entered evaluate infix" << endl;
 
   while(!infixQueue.empty())
     {
-      if(infixQueue.front() == "+" ||
-        infixQueue.front() == "-" ||
-        infixQueue.front() == "*" ||
-        infixQueue.front() == "/")
-        {
+      string token = infixQueue.front();
+      infixQueue.pop();
 
-        }
-      else if(infixQueue.front() == "(")
+      if(token == "+" ||
+        token == "-" ||
+        token == "*" ||
+        token == "/")
         {
-          operators.push(infixQueue.front());
+	  while(!operators.empty() && 
+                precedence(infixQueue.front())>precedence(token))
+            {
+              operands.push(evaluateOperation(operators, operands));
+            }
+          
+          operators.push(token);
         }
-      else if(infixQueue.front() == ")")
+      else if(token == "(")
         {
-          while(!operators.empty() && infixQueue.front() != "(")
+          operators.push(token);
+        }
+      else if(token == ")")
+        {
+          while(!operators.empty() && token != "(")
             {
               operands.push(evaluateOperation(operators, operands));
             }
@@ -146,11 +155,9 @@ Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
       else
         {
           string::size_type sz;
-          long number = stol(infixQueue.front(), &sz);
+          long number = stol(token, &sz);
           operands.push(Fraction(number));
         }
-
-      infixQueue.pop();
     }
 
 
@@ -161,6 +168,7 @@ Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
 
   Fraction result = operands.top();
   operands.pop();
+
   return result;
 }
 
@@ -173,6 +181,10 @@ Fraction Fraction::evaluateOperation( stack<string> & operators, stack<Fraction>
 
   string oper = operators.top();
   operators.pop();
+
+  lhs.normalize();
+  rhs.normalize();
+  cout << "evaluating : " << lhs << oper << rhs << endl;
 
   if(oper=="+")
     return lhs + rhs;

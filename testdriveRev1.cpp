@@ -50,8 +50,6 @@ int main()
    cout << "f2: " << f2 << "\n\n";
 
    cout << "testing operator< with f1 < f2;" << '\n';
-   cout << f1 << endl;
-   cout << f2 << endl;
    assert(f1 < f2);           // operator <
    cout << "ok\n\n";
 
@@ -141,13 +139,13 @@ int main()
    Fraction sum;     // sum = 0
    for (int k = 0; k < 10; ++k)
    {
-     sum = sum + oneThird;
-     cout << "sum: " << sum << '\n';
+      sum = sum + oneThird;
+      cout << "sum: " << sum << '\n';
    }
    cout << "sum: " << sum << '\n';
    assert(sum == Fraction(10, 3));
    cout << "ok\n\n";
-
+   
    cout << "testing operators * and / with sum = sum * oneThird / oneThird;" << '\n';
    sum = sum * oneThird / oneThird;
    cout << "sum: " << sum << '\n';
@@ -184,14 +182,13 @@ int main()
       == s);
    cout << "ok\n\n";
 
-   cout << "testing operator>> with cin >> f;" << '\n';
-   Fraction f;
-   cin >> f;
-   cout << "f : " << f << '\n';
-   f = f + Fraction(6, 10) - f;
-
-   cout << "testing operator +=" << '\n';
-   Fraction f(3,5);
+   //cout << "testing operator>> with cin >> f;" << '\n';
+   Fraction f(5);
+   //cin >> f;
+   //cout << "f : " << f << '\n';
+   //f = f + Fraction(6, 10) - f;
+  
+   cout << "\ntesting operator +=" << '\n';
    f += 1;
    cout << "f : " << f << '\n';
    assert( f == Fraction(8, 5) );
