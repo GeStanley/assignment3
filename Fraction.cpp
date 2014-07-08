@@ -71,6 +71,15 @@ const long Fraction::getDenominator() const
   return denominator;
 }
 
+void Fraction::setFraction( const string &infix)
+{
+  queue<string> myQueue = Tokenize(infix);
+
+  *this = evaluateInfix(myQueue);
+
+  normalize();
+}
+
 void Fraction::setNumerator( long numer )
 {
   numerator = numer;
@@ -406,14 +415,13 @@ bool operator >= (const Fraction &lhs, const Fraction &rhs)
   return true;
 }
 
-//istream & operator >> (istream &input, Fraction &fraction)
-//{
-    //input >> must finish this to extract numerator
-    //input.ignore(); //ignore the /
-    //input >> must finish this to extract denominator
-    //pass numer and denom to fraction.
-    //return input;
-//}
+istream & operator >> (istream &input, Fraction &fraction)
+{
+    string infix;
+    input >> infix;
+    fraction.setFraction(infix);
+    return input;
+}
 
 ostream & operator << ( ostream &output, const Fraction &fraction )
 {

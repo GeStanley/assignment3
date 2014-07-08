@@ -25,6 +25,7 @@ public:
   const long getNumerator() const;
   const long getDenominator() const;
 
+  void setFraction( const string & );
   void setNumerator( long );
   void setDenominator( long );
 
@@ -77,7 +78,7 @@ private:
   bool operator >= (const Fraction &lhs, const Fraction & rhs);
 
   //insertion operator >>
-  //istream & operator >> ( istream &, Fraction &);
+  istream & operator >> ( istream &, Fraction &);
 
   //extraction operator <<
   ostream & operator << ( ostream &, const Fraction & );

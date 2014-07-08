@@ -182,11 +182,11 @@ int main()
       == s);
    cout << "ok\n\n";
 
-   //cout << "testing operator>> with cin >> f;" << '\n';
-   Fraction f(6,10);
-   //cin >> f;
-   //cout << "f : " << f << '\n';
-   //f = f + Fraction(6, 10) - f;
+   cout << "testing operator>> with cin >> f;" << '\n';
+   Fraction f;
+   cin >> f;
+   cout << "f : " << f << '\n';
+   f = f + Fraction(6, 10) - f;
 
    cout << "\ntesting operator +=" << '\n';
    f += 1;
