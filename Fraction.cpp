@@ -34,8 +34,6 @@ Fraction::Fraction( long numerator, long denominator )
 
 Fraction::Fraction( const string &infix )
 {
-  //cout << "const string &infix constructor" << endl;
-
   queue<string> myQueue = Tokenize(infix);
 
   *this = evaluateInfix(myQueue);
@@ -45,7 +43,6 @@ Fraction::Fraction( const string &infix )
 
 Fraction::Fraction( const char *characters)
 {
-  //cout << "const char *characters constructor" << endl;
   string temp;
   temp+= characters;
 
@@ -88,7 +85,6 @@ void Fraction::setNumerator( long numer )
 void Fraction::setDenominator( long denom )
 {
   (denom == 0) ? throw "Division by zero" : denominator = denom;
-
 }
 
 queue<string> Fraction::Tokenize( const string & infixExpression )
@@ -130,10 +126,8 @@ Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
   stack<Fraction> operands;
   stack<string> operators;
 
-  //cout << "entered evaluate infix" << endl;
-
   while(!infixQueue.empty())
-    {
+    {//get the next token from the queue
       string token = infixQueue.front();
       infixQueue.pop();
 
@@ -141,7 +135,7 @@ Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
         token == "-" ||
         token == "*" ||
         token == "/")
-        {
+        {//prioritize operations with higher precedence
 	        while(!operators.empty() &&
             precedence(token) <= precedence(operators.top()))
             {
@@ -155,28 +149,30 @@ Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
           operators.push(token);
         }
       else if(token == ")")
-        {
+        { //evaluate all operations between the parenthesis
           while(operators.top() != "(")
             {
               operands.push(evaluateOperation(operators, operands));
             }
-
+          //remove the opening parenthesis
           operators.pop();
         }
       else
-        {
+        {//convert string to long
           string::size_type sz;
           long number = stol(token, &sz);
+
+          //and use the long to create a Fraction
           operands.push(Fraction(number));
         }
     }
 
-
+  //complete the remaining operations
   while(!operators.empty())
     {
       operands.push(evaluateOperation(operators, operands));
     }
-
+  //retrieve the result of the operation from the stack
   Fraction result = operands.top();
   operands.pop();
 
@@ -185,17 +181,20 @@ Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
 
 Fraction Fraction::evaluateOperation( stack<string> & operators, stack<Fraction> & operands)
 {
+  //pop two Fractions from the stack
   Fraction rhs = operands.top();
   operands.pop();
   Fraction lhs = operands.top();
   operands.pop();
 
+  //pop the operand from the stack
   string oper = operators.top();
   operators.pop();
 
   lhs.normalize();
   rhs.normalize();
 
+  //perform the operation as indicated by the operand
   if(oper=="+")
     return lhs + rhs;
 
@@ -222,15 +221,16 @@ int Fraction::precedence( string oper )
 }
 
 void Fraction::normalize()
-{
+{//find the greatest common denominator
   long divisor = gcd( numerator, denominator );
 
+  //use it to simplify the fraction.
   numerator /= divisor;
   denominator /= divisor;
 }
 
 long Fraction::gcd( long numer, long denom )
-{
+{//recursively determine the greatest common denominator
   return (denom == 0) ? numer : gcd( denom, numer % denom );
 }
 
