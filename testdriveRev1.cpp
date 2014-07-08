@@ -145,7 +145,7 @@ int main()
    cout << "sum: " << sum << '\n';
    assert(sum == Fraction(10, 3));
    cout << "ok\n\n";
-   
+
    cout << "testing operators * and / with sum = sum * oneThird / oneThird;" << '\n';
    sum = sum * oneThird / oneThird;
    cout << "sum: " << sum << '\n';
@@ -183,11 +183,11 @@ int main()
    cout << "ok\n\n";
 
    //cout << "testing operator>> with cin >> f;" << '\n';
-   Fraction f(5);
+   Fraction f(6,10);
    //cin >> f;
    //cout << "f : " << f << '\n';
    //f = f + Fraction(6, 10) - f;
-  
+
    cout << "\ntesting operator +=" << '\n';
    f += 1;
    cout << "f : " << f << '\n';

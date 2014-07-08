@@ -133,12 +133,12 @@ Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
         token == "*" ||
         token == "/")
         {
-	  while(!operators.empty() && 
-                precedence(infixQueue.front())>precedence(token))
+	        while(!operators.empty() &&
+            precedence(token) < precedence(operators.top()))
             {
               operands.push(evaluateOperation(operators, operands));
             }
-          
+
           operators.push(token);
         }
       else if(token == "(")
@@ -184,7 +184,6 @@ Fraction Fraction::evaluateOperation( stack<string> & operators, stack<Fraction>
 
   lhs.normalize();
   rhs.normalize();
-  cout << "evaluating : " << lhs << oper << rhs << endl;
 
   if(oper=="+")
     return lhs + rhs;
