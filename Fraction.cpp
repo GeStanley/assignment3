@@ -143,7 +143,7 @@ Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
         token == "/")
         {
 	        while(!operators.empty() &&
-            precedence(token) < precedence(operators.top()))
+            precedence(token) <= precedence(operators.top()))
             {
               operands.push(evaluateOperation(operators, operands));
             }
@@ -156,10 +156,12 @@ Fraction Fraction::evaluateInfix( queue<string> & infixQueue )
         }
       else if(token == ")")
         {
-          while(!operators.empty() && token != "(")
+          while(operators.top() != "(")
             {
               operands.push(evaluateOperation(operators, operands));
             }
+
+          operators.pop();
         }
       else
         {

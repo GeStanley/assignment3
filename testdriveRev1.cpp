@@ -240,5 +240,11 @@ int main()
 
    cout << "Test over successfully!" << endl;
 
+
+   cout << "testing (9-1+2)*(8-3)+6/2" << endl;
+   Fraction test("(9-1+2)*(8-3)+6/2");
+   assert(test == Fraction(53));
+   cout << "ok\n\n";
+
    return 0;
 }
