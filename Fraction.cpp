@@ -235,10 +235,11 @@ long Fraction::gcd( long numer, long denom )
 }
 
 Fraction & Fraction::operator += (const Fraction & rhs)
-{
+{//put the fraction into the same base and add numerators
   this->numerator = this->numerator * rhs.getDenominator()
                    + rhs.getNumerator() * this->denominator;
 
+  //multiply denominators
   this->denominator *= rhs.getDenominator();
 
   this->normalize();
@@ -247,10 +248,11 @@ Fraction & Fraction::operator += (const Fraction & rhs)
 }
 
 Fraction & Fraction::operator -= (const Fraction & rhs)
-{
+{ //put the fraction to the same base and substractor numerators
   this->numerator = this->numerator * rhs.getDenominator()
                    - rhs.getNumerator() * this->denominator;
-
+  
+  //multiply denominators
   this->denominator *= rhs.getDenominator();
 
   this->normalize();
@@ -281,7 +283,7 @@ Fraction & Fraction::operator /= (const Fraction & rhs)
 }
 
 Fraction & Fraction::operator++() //++f
-{
+{ //add 1
   numerator += denominator;
 
   normalize();
@@ -290,9 +292,10 @@ Fraction & Fraction::operator++() //++f
 }
 
 Fraction Fraction::operator++(int) //f++
-{
+{ //create temp to return
   Fraction temp(numerator, denominator);
-
+  
+  //add 1
   numerator += denominator;
 
   normalize();
@@ -300,8 +303,8 @@ Fraction Fraction::operator++(int) //f++
   return temp;
 }
 
-Fraction & Fraction::operator--() //++f
-{
+Fraction & Fraction::operator--() //--f
+{ //substract 1
   numerator -= denominator;
 
   normalize();
@@ -309,10 +312,12 @@ Fraction & Fraction::operator--() //++f
   return *this;
 }
 
-Fraction Fraction::operator--(int) //f++
-{
+Fraction Fraction::operator--(int) //f--
+{ 
+  //create temp to return
   Fraction temp(numerator, denominator);
-
+  
+  //substract 1
   numerator -= denominator;
 
   normalize();
