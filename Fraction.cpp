@@ -55,6 +55,10 @@ Fraction::Fraction( const char *characters)
 
 const string Fraction::toString() const
 {
+
+    if(numerator == 0 || denominator == 1)
+      return numerator;
+
     return to_string(numerator) + "/" + to_string(denominator);
 }
 
@@ -425,7 +429,8 @@ bool operator >= (const Fraction &lhs, const Fraction &rhs)
 istream & operator >> (istream &input, Fraction &fraction)
 {
     string infix;
-    input >> infix;
+    //input >> infix;
+    getline(input,infix);
     fraction.setFraction(infix);
     return input;
 }
